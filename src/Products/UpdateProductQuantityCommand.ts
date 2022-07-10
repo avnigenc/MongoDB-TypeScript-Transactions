@@ -71,13 +71,12 @@ export class UpdateProductQuantityCommandProcessor implements ICommandProcessor 
 
     // If the product is not found in the collection
     if (!savedProduct || savedProduct.Transactions == null || !savedProduct.Transactions.length) return;
-    //
     // If the product wasn't affected by the current transaction
     if (!savedProduct.Transactions.includes(transaction.TransactionId)) return;
 
     const updateDefinitions = {
       $inc: { InStockAmount: -processedCommand.Value },
-      $pop: { Transactions: transaction.TransactionId },
+      $pull: { Transactions: { $in: [transaction.TransactionId] } },
     };
 
     const updatedProduct = await this.productsCollection

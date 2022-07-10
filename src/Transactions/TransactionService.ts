@@ -49,7 +49,7 @@ export class TransactionsService {
 
     transaction.Status = TransactionStatus.RolledBack;
 
-    await this.transactionCollection.find<Transaction>(
+    await this.transactionCollection.findOneAndUpdate<Transaction>(
       { _id: transaction._id },
       transaction,
     );

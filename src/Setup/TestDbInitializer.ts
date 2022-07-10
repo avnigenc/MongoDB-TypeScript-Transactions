@@ -3,7 +3,6 @@ import { Transaction } from '../Transactions/Transaction';
 import { Order } from '../Orders/Order';
 import { Product } from '../Products/Product';
 import { ServicesContainer } from '../Ioc/ServiceContainer';
-import { Guid } from '../Utils/Guid';
 
 export class TestDbInitializer {
   private readonly transactionCollection: Model<Transaction>;
@@ -19,8 +18,10 @@ export class TestDbInitializer {
   }
 
   async InitTestDb() {
-    await this.ResetAllCollections();
-    await this.InsertDemoProducts();
+    if (process.env.REST_ALL_COLLECTIONS) {
+      await this.ResetAllCollections();
+      await this.InsertDemoProducts();
+    }
   }
 
   private async ResetAllCollections(): Promise<void> {
@@ -34,7 +35,6 @@ export class TestDbInitializer {
 
     for (let i = 0; i < numberOfProducts; i++) {
       const product = new Product();
-      product.ProductId = Guid.NewGuid();
       product.Name = `Sample Product ${i + 1}`;
       product.Description = 'Great product - Good value for money';
       product.InStockAmount = initialQuantity;
