@@ -1,0 +1,16 @@
+{
+  "name": "MongoDB-TwoPhaseCommit-Transactions",
+  "version": "1.0.0",
+  "author": "Avni Genc",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/app.ts"
+  },
+  "dependencies": {
+    "@typegoose/typegoose": "^9.10.1",
+    "mongo-uri-builder": "^4.0.0",
+    "mongoose": "^6.4.2",
+    "reflect-metadata": "^0.1.13",
+    "typedi": "^0.10.0"
+  }
+}
