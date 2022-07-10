@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-classes-per-file
 import { Model } from 'mongoose';
 import { Service } from 'typedi';
 import { ICommand } from '../Commands/ICommand';
@@ -22,18 +23,19 @@ export class CreateOrderCommand implements ICommand {
 
 @Service()
 export class CreateOrderCommandProcessor implements ICommandProcessor {
-  private readonly _ordersCollection: Model<Order>;
+  private readonly ordersCollection: Model<Order>;
 
-  private readonly _name: string = CreateOrderCommand.name;
+  private readonly name: string = CreateOrderCommand.name;
 
   constructor() {
-    this._ordersCollection = ServicesContainer.GetService<Model<Order>>(Order.name);
+    this.ordersCollection = ServicesContainer.GetService<Model<Order>>(Order.name);
   }
 
   get Name(): string {
-    return this._name;
+    return this.name;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public CanProcess(command: ICommand): command is CreateOrderCommand {
     return !!(command as CreateOrderCommand);
   }
@@ -49,7 +51,7 @@ export class CreateOrderCommandProcessor implements ICommandProcessor {
       Transactions: [transaction.TransactionId],
     };
 
-    await this._ordersCollection.create(order);
+    await this.ordersCollection.create(order);
   }
 
   public async RollBack(command: ICommand, transaction: Transaction): Promise<void> {
@@ -57,7 +59,7 @@ export class CreateOrderCommandProcessor implements ICommandProcessor {
 
     if (processedCommand == null) throw new Error('Unsupported or empty command passed to processor');
 
-    const insertedOrder = await this._ordersCollection
+    const insertedOrder = await this.ordersCollection
       .findOne({
         Transactions: { $in: [transaction.TransactionId] },
         ProductsAndQuantity: processedCommand.Products,
@@ -65,7 +67,7 @@ export class CreateOrderCommandProcessor implements ICommandProcessor {
       });
 
     if (insertedOrder != null) {
-      await this._ordersCollection.deleteOne({ OrderId: insertedOrder._id });
+      await this.ordersCollection.deleteOne({ OrderId: insertedOrder._id });
     }
   }
 }

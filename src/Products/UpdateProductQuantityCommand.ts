@@ -36,6 +36,7 @@ export class UpdateProductQuantityCommandProcessor implements ICommandProcessor 
     return this.name;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public CanProcess(command: ICommand): command is UpdateProductQuantityCommand {
     return !!(command as UpdateProductQuantityCommand);
   }

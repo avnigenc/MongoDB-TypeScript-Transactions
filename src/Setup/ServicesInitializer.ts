@@ -15,6 +15,7 @@ interface IConfig {
 }
 
 export class ServicesInitializer {
+  // eslint-disable-next-line class-methods-use-this
   public async InitServices(): Promise<void> {
     const Config: IConfig = {
       Mongo: {
