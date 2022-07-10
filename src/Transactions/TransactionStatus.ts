@@ -1,6 +1,6 @@
 export enum TransactionStatus {
-    Pending,
-    Completed,
-    RolledBack,
-    Error
+  Pending,
+  Completed,
+  RolledBack,
+  Error,
 }

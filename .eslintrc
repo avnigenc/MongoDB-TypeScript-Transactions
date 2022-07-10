@@ -1,0 +1,56 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:import/typescript",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+        "airbnb-typescript/base"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json"
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+        "no-plusplus": "off" ,
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            { "js": "never", "jsx": "never", "ts": "never", "tsx": "never" }
+        ],
+        "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+        "no-underscore-dangle": ["error", { "allow": ["_id", "_doc"] }],
+        "comma-dangle": [
+            "error",
+            {
+                "arrays": "always-multiline",
+                "objects": "always-multiline",
+                "imports": "always-multiline",
+                "exports": "always-multiline",
+                "functions": "ignore"
+            }
+        ],
+        "no-param-reassign": "off",
+        "no-prototype-builtins": "warn",
+        "no-restricted-properties": "off",
+        "operator-linebreak": "off",
+        "indent": ["error", 2, { "SwitchCase": 1 }],
+        "max-len": ["error", { "code": 160, "tabWidth": 2 }],
+        "import/prefer-default-export": "off",
+        "class-methods-use-this": [
+            "error",
+            { "exceptMethods": ["intercept", "getHealth"] }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".json", ".ts", ".tsx"]
+            }
+        }
+    }
+}

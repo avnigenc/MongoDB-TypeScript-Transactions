@@ -1,19 +1,20 @@
 import { Product } from './Product';
 
 export class OrderedProduct {
-    private readonly _product: Product;
-    private readonly _quantity: number;
+  private readonly product: Product;
 
-    constructor(product: Product, quantity: number) {
-        this._product = product;
-        this._quantity = quantity;
-    }
+  private readonly quantity: number;
 
-    get Product(): Product {
-        return this._product;
-    }
+  constructor(_product: Product, _quantity: number) {
+    this.product = _product;
+    this.quantity = _quantity;
+  }
 
-    get Quantity(): number {
-        return this._quantity;
-    }
+  get Product(): Product {
+    return this.product;
+  }
+
+  get Quantity(): number {
+    return this.quantity;
+  }
 }
